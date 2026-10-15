@@ -7,23 +7,7 @@ description: Frame, write, self-review and iterate a product design case study f
 
 Suraj is a product designer who also codes (IIT Guwahati, UXD @ Eventory). His portfolio headline is "Hey, I'm Suraj. I create experiences": calm, professional, with personality kept in the details. A case study has to read like **his** story about **one** project. It is not a generic template filled in.
 
-This skill is a living document. After each case study round, add what was learned to `## 9. Extended references (layout, motion, voice)
-
-Load these when the task touches layout, motion or voice. They extend this file; on any conflict this file wins.
-
-| Task | Read |
-|---|---|
-| Page layout, rail/column/margin grid, 7-9 chapters, headline rules, building the structure in Figma | `references/layout-hybrid.md` |
-| How much animation or interactivity, auditing motion, James Chugh keep/adapt/skip | `references/motion-system.md` (run `node scripts/motion-audit.mjs <dir> --mode case --chapters 8`) |
-| Polishing spoken/dictated phrasing, hand-off lines between chapters, interviewing from Wispr Flow first | `references/voice-and-story.md` |
-| See the layout and tune motion live | open `demo/layout-demo.html` |
-| Patterns from studied case studies | `references/exemplars.md` |
-
-Defaults: 7-9 chapters. Sentence-style headlines that tell the whole story alone. Write headlines first. One interactive proof (rule in section 3). Target Motion Load Score 12-17 per case study (green is up to 18). Respect `prefers-reduced-motion`.
-
----
-
-## Learnings log` at the bottom, and change the rules above it when a learning overturns one.
+This skill is a living document. After each case study round, add what was learned to `## Learnings log` at the bottom, and change the rules above it when a learning overturns one.
 
 References studied: see `references/exemplars.md`. Re-read it when a draft feels flat.
 
@@ -214,6 +198,22 @@ OPEN QUESTIONS FOR SURAJ: <only facts I can't know>
 
 ---
 
+## 9. Extended references (layout, motion, voice)
+
+Load these when the task touches layout, motion or voice. They extend this file; on any conflict this file wins.
+
+| Task | Read |
+|---|---|
+| Page layout, rail/column/margin grid, 7-9 chapters, headline rules, building the structure in Figma | `references/layout-hybrid.md` |
+| How much animation or interactivity, auditing motion, James Chugh keep/adapt/skip | `references/motion-system.md` (run `node scripts/motion-audit.mjs <dir> --mode case --chapters 8`) |
+| Polishing spoken/dictated phrasing, hand-off lines between chapters, interviewing from Wispr Flow first | `references/voice-and-story.md` |
+| See the layout and tune motion live | open `demo/layout-demo.html` |
+| Patterns from studied case studies | `references/exemplars.md` |
+
+Defaults: 7-9 chapters. Sentence-style headlines that tell the whole story alone. Write headlines first. One interactive proof (rule in section 3). Target Motion Load Score 12-17 per case study (green is up to 18). Respect `prefers-reduced-motion`.
+
+---
+
 ## Learnings log
 
 - **2026-10-15:** The 800-word cap was rejected and replaced by length-by-depth (soft ceiling 2,000) plus the layered 30-sec rule. Lesson: don't apply a single guide's rule as law; check with Suraj.
@@ -221,3 +221,4 @@ OPEN QUESTIONS FOR SURAJ: <only facts I can't know>
 - **2026-10-15:** Suraj's storytelling thesis (hook → solution → but → solution) was confirmed against 7 top case studies.
 - **2026-10-15:** Added the long-form reading craft from Suraj's research (Dan Abramov, Josh Comeau, Ciechanowski, Paul Graham, Maggie Appleton, Nate Parrott, UX Collective, the Field Guide) as §5b, plus rubric checks 15–17 (skim layer, promise/cost/next step, rhythm). Threshold is now 29/34.
 - **2026-10-16:** Added hybrid layout (sticky rail, left-aligned column, right margin, 7-9 chapters), the Motion Load Score with audit script and live demo, voice cleanup rules (from Wispr Flow review recordings) and interview mode as references (§9). Open conflict resolved in favour of the existing rule: one interactive proof per case study.
+- **2026-10-16:** Fixed a splice error: §9 had been pasted into the middle of the intro sentence about the learnings log; it now sits after §8. Typography in `layout-hybrid.md` and the demo now defers to Suraj's own system (§6 / type scale), not the demo's serif values.

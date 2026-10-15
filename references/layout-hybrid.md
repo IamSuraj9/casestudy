@@ -11,7 +11,7 @@ Sources: James Chugh (story thread, numbered point-headlines, proof interactions
 Desktop grid (>= 1180px): `220px rail | 700px column | 220px margin`, 48px gaps, max width 1320px, content left-aligned, never centered.
 
 - **Rail (left, sticky, full height):** case-study label, title, read time and chapter count; numbered chapter list `01 The numbers`; active item has a 2px left bar; TL;DR link at the bottom. Progress is shown by a 3px top bar.
-- **Column (center-left, 680-720px):** serif body at 19px/1.65, max 66ch lines. Sans only for UI, labels and captions.
+- **Column (center-left, 680-720px):** max ~66ch lines. **Typography follows Suraj's system, not this file:** Artific Bold for headlines, Geist for body and UI, Geist Mono for labels, on the case-study type scale (see `SKILL.md` §6). The demo's Georgia/Inter values and sizes are placeholders for structure only.
 - **Margin (right):** sparingly. One big numeral, one pull quote, or one "what I'd change" note per chapter, never all three. Skip it if nothing earns the space.
 - **Below 1180px:** rail becomes a sticky horizontal pill strip (numbers only); margin content folds under the chapter body; one column, 20px gutters.
 - **Hero block:** eyebrow (company, year) -> H1 stating the outcome -> 2-3 sentence lede -> fact strip (Role, Team, Timeline, Result) -> TL;DR anchor.
