@@ -1,13 +1,29 @@
 ---
 name: case-study-writer
-description: Frame, write, self-review and iterate a product design case study for Suraj's portfolio, one project at a time. Use when drafting or restructuring a case study (Eventory Vendor app V2, Eventory booking journey, Ninur, Yojana, or a new project), when Suraj shares project notes or screens for a case study, or when he asks to review, critique or improve a case study draft.
+description: Frame, write, self-review and iterate a product design case study for Suraj's portfolio, one project at a time. Use when drafting or restructuring a case study (Eventory Vendor app V2, Eventory booking journey, Ninur, Yojana, or a new project), when Suraj shares project notes or screens for a case study, or when he asks to review, critique or improve a case study draft. Also use for the page layout (sticky chapter rail, 7-9 chapters, headline rules), motion budget (Motion Load Score), voice cleanup, interviewing from Wispr Flow notes, and Figma structure builds.
 ---
 
 # Case study writer
 
 Suraj is a product designer who also codes (IIT Guwahati, UXD @ Eventory). His portfolio headline is "Hey, I'm Suraj. I create experiences": calm, professional, with personality kept in the details. A case study has to read like **his** story about **one** project. It is not a generic template filled in.
 
-This skill is a living document. After each case study round, add what was learned to `## Learnings log` at the bottom, and change the rules above it when a learning overturns one.
+This skill is a living document. After each case study round, add what was learned to `## 9. Extended references (layout, motion, voice)
+
+Load these when the task touches layout, motion or voice. They extend this file; on any conflict this file wins.
+
+| Task | Read |
+|---|---|
+| Page layout, rail/column/margin grid, 7-9 chapters, headline rules, building the structure in Figma | `references/layout-hybrid.md` |
+| How much animation or interactivity, auditing motion, James Chugh keep/adapt/skip | `references/motion-system.md` (run `node scripts/motion-audit.mjs <dir> --mode case --chapters 8`) |
+| Polishing spoken/dictated phrasing, hand-off lines between chapters, interviewing from Wispr Flow first | `references/voice-and-story.md` |
+| See the layout and tune motion live | open `demo/layout-demo.html` |
+| Patterns from studied case studies | `references/exemplars.md` |
+
+Defaults: 7-9 chapters. Sentence-style headlines that tell the whole story alone. Write headlines first. One interactive proof (rule in section 3). Target Motion Load Score 12-17 per case study (green is up to 18). Respect `prefers-reduced-motion`.
+
+---
+
+## Learnings log` at the bottom, and change the rules above it when a learning overturns one.
 
 References studied: see `references/exemplars.md`. Re-read it when a draft feels flat.
 
@@ -204,3 +220,4 @@ OPEN QUESTIONS FOR SURAJ: <only facts I can't know>
 - **2026-10-15:** A TL;DR on every case study was confirmed by Suraj.
 - **2026-10-15:** Suraj's storytelling thesis (hook → solution → but → solution) was confirmed against 7 top case studies.
 - **2026-10-15:** Added the long-form reading craft from Suraj's research (Dan Abramov, Josh Comeau, Ciechanowski, Paul Graham, Maggie Appleton, Nate Parrott, UX Collective, the Field Guide) as §5b, plus rubric checks 15–17 (skim layer, promise/cost/next step, rhythm). Threshold is now 29/34.
+- **2026-10-16:** Added hybrid layout (sticky rail, left-aligned column, right margin, 7-9 chapters), the Motion Load Score with audit script and live demo, voice cleanup rules (from Wispr Flow review recordings) and interview mode as references (§9). Open conflict resolved in favour of the existing rule: one interactive proof per case study.

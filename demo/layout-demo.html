@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hybrid case study layout demo</title>
+<style>
+  :root {
+    --bg: #fbfaf7; --ink: #161616; --mute: #6b6b66; --line: #e4e1d8; --accent: #2f5bea;
+    --ok: #1f8a4c; --warn: #b87a00; --bad: #c23b2e;
+    --rail: 220px; --col: 700px; --margin: 220px; --gap: 48px;
+    --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    --sans: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 19px/1.65 var(--serif); }
+  a { color: inherit; }
+  .sans { font-family: var(--sans); }
+  .eyebrow { font: 600 12px/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+
+  /* progress bar (rail progress fx) */
+  #prog { position: fixed; inset: 0 0 auto 0; height: 3px; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); z-index: 50; display: none; }
+  .fx-progress #prog { display: block; }
+
+  .shell { display: grid; grid-template-columns: var(--rail) minmax(0, var(--col)) var(--margin); column-gap: var(--gap); max-width: 1320px; margin: 0 auto; padding: 0 32px 120px; }
+
+  /* LEFT RAIL */
+  .rail { grid-column: 1; grid-row: 1 / span 20; position: sticky; top: 0; align-self: start; height: 100vh; padding: 40px 0; font-family: var(--sans); font-size: 14px; display: flex; flex-direction: column; gap: 20px; overflow: auto; }
+  .rail-meta strong { display: block; font-size: 15px; margin: 6px 0 2px; }
+  .rail-meta span { color: var(--mute); font-size: 13px; }
+  .rail ol { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--line); }
+  .rail li a { display: flex; gap: 10px; padding: 7px 0 7px 14px; text-decoration: none; color: var(--mute); margin-left: -1px; border-left: 2px solid transparent; }
+  .rail li a b { font-weight: 600; font-variant-numeric: tabular-nums; width: 22px; }
+  .rail li a.on { color: var(--ink); border-left-color: var(--ink); }
+  .fx-progress .rail li a { transition: color .2s, border-color .2s; }
+  .rail .tldr { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+  /* HERO */
+  .hero { grid-column: 2 / 4; padding: 72px 0 40px; position: relative; }
+  .hero h1 { font: 700 clamp(34px, 5vw, 56px)/1.08 var(--serif); letter-spacing: -.02em; margin: 14px 0 18px; max-width: 18ch; }
+  .hero p.lede { font-size: 22px; max-width: 34em; color: #333; margin: 0 0 28px; }
+  .facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; border-top: 1px solid var(--ink); padding-top: 16px; font-family: var(--sans); font-size: 14px; max-width: 920px; }
+  .facts dt { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); margin-bottom: 4px; }
+  .facts dd { margin: 0; font-weight: 600; }
+  .dots { position: absolute; right: 0; top: 40px; width: 220px; height: 160px; pointer-events: none; }
+  .dots span { position: absolute; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); opacity: .18; }
+  .dots span:nth-child(1) { left: 10px; top: 20px; } .dots span:nth-child(2) { left: 90px; top: 80px; width: 22px; height: 22px; }
+  .dots span:nth-child(3) { left: 160px; top: 10px; } .dots span:nth-child(4) { left: 130px; top: 120px; width: 10px; height: 10px; }
+  .fx-loop .dots span { animation: float 6s ease-in-out infinite; }
+  .fx-loop .dots span:nth-child(2) { animation-delay: -2s; } .fx-loop .dots span:nth-child(3) { animation-delay: -4s; }
+  @keyframes float { 50% { transform: translateY(-14px); } }
+
+  /* CHAPTERS: body column + right margin */
+  .chapter { grid-column: 2 / 4; display: grid; grid-template-columns: minmax(0, var(--col)) var(--margin); column-gap: var(--gap); padding: 56px 0 8px; border-top: 1px solid var(--line); scroll-margin-top: 12px; }
+  .chapter .body { grid-column: 1; }
+  .chapter .aside { grid-column: 2; font-family: var(--sans); font-size: 14px; color: var(--mute); padding-top: 52px; display: flex; flex-direction: column; gap: 22px; }
+  .chapter h2 { font: 700 clamp(26px, 3vw, 34px)/1.15 var(--serif); letter-spacing: -.01em; margin: 10px 0 18px; }
+  .chapter p { margin: 0 0 1.1em; max-width: 66ch; }
+  .numeral { font: 700 54px/1 var(--serif); color: var(--ink); letter-spacing: -.02em; }
+  .numeral small { display: block; font: 500 13px/1.4 var(--sans); color: var(--mute); margin-top: 8px; letter-spacing: 0; }
+  .pull { font: italic 20px/1.4 var(--serif); color: var(--ink); border-left: 3px solid var(--ink); padding-left: 14px; }
+  .note { border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 12px 14px; }
+  .thinking { border: 1px solid var(--line); background: #fff; border-radius: 10px; padding: 16px 18px; margin: 8px 0 20px; font-family: var(--sans); font-size: 15px; }
+  .thinking h4 { margin: 0 0 8px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+  .thinking ul { margin: 0; padding-left: 18px; } .thinking li { margin: 2px 0; }
+  .mock { height: 220px; border-radius: 10px; background: repeating-linear-gradient(45deg, #efece4 0 12px, #f6f4ee 12px 24px); border: 1px dashed #c9c5b8; display: grid; place-items: center; font: 13px var(--sans); color: var(--mute); margin: 6px 0 22px; }
+  .hero-art { will-change: transform; }
+
+  /* reveal fx */
+  .fx-reveal .rv { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+  .fx-reveal .rv.in { opacity: 1; transform: none; }
+
+  /* interactive widgets: shown only when their fx is on */
+  .w { display: none; margin: 8px 0 22px; font-family: var(--sans); font-size: 14px; }
+  .fx-ba .w-ba, .fx-step .w-step, .fx-flip .w-flip { display: block; }
+  .seg { display: inline-flex; border: 1px solid var(--ink); border-radius: 999px; overflow: hidden; margin-bottom: 10px; }
+  .seg button { font: 600 13px var(--sans); padding: 7px 16px; border: 0; background: transparent; cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+  .panel { border-radius: 10px; padding: 18px; min-height: 96px; background: #fff; border: 1px solid var(--line); }
+  .panel.bad { border-color: #e6b5ae; background: #fdf3f1; } .panel.good { border-color: #b6dcc4; background: #f1faf4; }
+  .steps { display: flex; gap: 8px; margin-bottom: 10px; }
+  .steps button { flex: 1; font: 600 13px var(--sans); padding: 9px; border: 1px solid var(--line); background: #fff; border-radius: 8px; cursor: pointer; }
+  .steps button[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 -3px 0 var(--ink); }
+  .flip { perspective: 800px; width: 100%; max-width: 420px; }
+  .flip button { width: 100%; height: 120px; border: 0; background: none; padding: 0; cursor: pointer; position: relative; font: inherit; }
+  .flip .face { position: absolute; inset: 0; border-radius: 10px; border: 1px solid var(--line); background: #fff; display: grid; place-items: center; backface-visibility: hidden; padding: 12px; text-align: center; }
+  .flip .back { transform: rotateY(180deg); background: #f1faf4; }
+  .flip .inner { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .6s; }
+  .flip.on .inner { transform: rotateY(180deg); }
+
+  /* hover feedback */
+  .fx-hover a, .fx-hover button { transition: transform .15s ease, background-color .15s ease; }
+  .fx-hover .steps button:hover, .fx-hover .seg button:hover { transform: translateY(-1px); }
+
+  /* cursor + scene fx */
+  #cur { position: fixed; left: 0; top: 0; width: 28px; height: 28px; margin: -14px 0 0 -14px; border-radius: 50%; border: 2px solid var(--accent); pointer-events: none; z-index: 60; display: none; transition: transform .08s linear; }
+  .fx-cursor #cur { display: block; }
+  #scene { position: fixed; inset: 0; background: var(--ink); color: #fff; display: none; place-items: center; z-index: 70; font: 700 clamp(28px, 6vw, 64px) var(--serif); }
+  #scene.run { display: grid; animation: sceneOut 2.4s ease forwards; }
+  @keyframes sceneOut { 0%, 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+
+  /* MOTION LAB panel */
+  .lab { position: fixed; right: 16px; bottom: 16px; width: 330px; max-height: calc(100vh - 32px); overflow: auto; background: #fff; border: 1px solid var(--ink); border-radius: 14px; padding: 14px 16px; font: 13px/1.45 var(--sans); z-index: 80; box-shadow: 0 10px 30px rgba(0,0,0,.12); }
+  .lab h3 { margin: 0 0 8px; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
+  .lab h3 button { font: 600 12px var(--sans); border: 1px solid var(--line); background: #fff; border-radius: 6px; padding: 3px 8px; cursor: pointer; }
+  .lab.min .body { display: none; }
+  .meter { height: 10px; border-radius: 999px; background: linear-gradient(90deg, var(--ok) 0 51%, var(--warn) 51% 74%, var(--bad) 74% 100%); position: relative; margin: 8px 0 6px; }
+  .meter i { position: absolute; top: -4px; width: 4px; height: 18px; background: var(--ink); border-radius: 2px; left: 0; }
+  .score { display: flex; justify-content: space-between; align-items: baseline; }
+  .score b { font-size: 26px; font-variant-numeric: tabular-nums; }
+  .verdict { padding: 4px 10px; border-radius: 999px; font-weight: 700; font-size: 12px; color: #fff; }
+  .lab ul { list-style: none; margin: 10px 0 0; padding: 0; }
+  .lab li { display: flex; gap: 8px; align-items: flex-start; padding: 6px 0; border-top: 1px solid var(--line); }
+  .lab li input { margin-top: 3px; }
+  .lab li small { color: var(--mute); display: block; }
+  .tag { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 1px 6px; border-radius: 4px; background: #efece4; margin-left: 6px; }
+  .tag.Delight { background: #fde9c9; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .stats div { background: #f6f4ee; border-radius: 8px; padding: 6px 8px; } .stats span { display: block; color: var(--mute); font-size: 11px; }
+  .warn { margin: 8px 0 0; color: var(--bad); font-weight: 600; }
+  .reducednote { background: #fdf3f1; border: 1px solid #e6b5ae; border-radius: 8px; padding: 8px; margin-top: 8px; display: none; }
+  .reduced .reducednote { display: block; }
+  .reduced *, .reduced *::before, .reduced *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+
+  .next { grid-column: 2 / 4; border-top: 1px solid var(--ink); margin-top: 56px; padding-top: 24px; font-family: var(--sans); }
+  .next a { font: 700 26px var(--serif); text-decoration: none; }
+
+  /* responsive: rail becomes a top strip, margin folds into the column */
+  @media (max-width: 1180px) {
+    :root { --margin: 0px; --gap: 0px; }
+    .shell { grid-template-columns: minmax(0, 1fr); padding: 0 20px 120px; max-width: 760px; }
+    .rail { position: sticky; top: 0; grid-column: 1; grid-row: auto; height: auto; padding: 10px 0; background: var(--bg); z-index: 40; border-bottom: 1px solid var(--line); flex-direction: row; align-items: center; gap: 14px; overflow-x: auto; }
+    .rail-meta, .rail .tldr { display: none; }
+    .rail ol { display: flex; border: 0; gap: 4px; } .rail li a { padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; white-space: nowrap; margin: 0; }
+    .rail li a.on { border-color: var(--ink); } .rail li a span { display: none; }
+    .hero, .chapter, .next { grid-column: 1; } .chapter { grid-template-columns: minmax(0, 1fr); }
+    .chapter .aside { grid-column: 1; padding-top: 0; flex-direction: column; }
+    .facts { grid-template-columns: 1fr 1fr; } .dots { display: none; }
+    .lab { width: calc(100vw - 32px); }
+  }
+</style>
+</head>
+<body class="fx-hover fx-reveal fx-progress fx-ba fx-step">
+<div id="prog"></div><div id="cur"></div><div id="scene" aria-hidden="true">Chapter zero: the dinner</div>
+
+<div class="shell">
+  <nav class="rail" aria-label="Chapters">
+    <div class="rail-meta"><span class="eyebrow">Case study</span><strong>Group booking checkout</strong><span>~9 min read &middot; 8 chapters</span></div>
+    <ol id="railList"></ol>
+    <a class="tldr" href="#tldr">TL;DR &rarr;</a>
+  </nav>
+
+  <header class="hero" id="tldr">
+    <span class="eyebrow">Placeholder company &middot; 2026</span>
+    <h1 class="hero-art" data-motion="parallax">Fewer groups gave up at checkout.</h1>
+    <p class="lede">Placeholder summary: one sentence on the problem, one on what changed, one on the number that moved. Replace all demo copy and numbers with your own.</p>
+    <dl class="facts"><div><dt>Role</dt><dd>Lead designer</dd></div><div><dt>Team</dt><dd>1 PM, 3 engineers</dd></div><div><dt>Timeline</dt><dd>Jan to Apr 2026</dd></div><div><dt>Result</dt><dd>+[X]% completion</dd></div></dl>
+    <div class="dots" data-motion="loop"><span></span><span></span><span></span><span></span></div>
+  </header>
+
+  <section class="chapter" id="c1" data-title="The numbers"><div class="body">
+    <span class="eyebrow">Chapter 1</span><h2 class="rv">Only [36] of 100 groups finished booking.</h2>
+    <p class="rv">Open with the number and the single thread you will follow through the whole story. One paragraph, three sentences at most.</p>
+    <div class="mock rv">Funnel visual placeholder</div></div>
+    <aside class="aside"><div class="numeral rv">36<small>of 100 finished (placeholder)</small></div></aside></section>
+
+  <section class="chapter" id="c2" data-title="The people"><div class="body">
+    <span class="eyebrow">Chapter 2</span><h2 class="rv">I read what they were telling support.</h2>
+    <p class="rv">Evidence before opinion: quotes, tickets, call notes. Keep each quote short and attributed to a segment, not a name.</p>
+    <div class="w w-flip" data-motion="interactive"><div class="flip" id="flip"><button type="button" aria-label="Flip summary card"><div class="inner"><div class="face">Tap: what users said</div><div class="face back">&ldquo;I could not tell who owed what.&rdquo;</div></div></button></div></div></div>
+    <aside class="aside"><div class="pull rv">&ldquo;Pull quote: the one sentence a skimmer should take away.&rdquo;</div></aside></section>
+
+  <section class="chapter" id="c3" data-title="The real problem"><div class="body">
+    <span class="eyebrow">Chapter 3</span><h2 class="rv">40 pain points collapsed into five problems.</h2>
+    <p class="rv">Show the sorting, then state the one problem you chose and why. This is where senior judgment becomes visible.</p></div>
+    <aside class="aside"><div class="note rv"><b>Margin note</b><br>Use this column for asides: methods, caveats, what you would change.</div></aside></section>
+
+  <section class="chapter" id="c4" data-title="Constraints"><div class="body">
+    <span class="eyebrow">Chapter 4</span><h2 class="rv">What this was not allowed to be.</h2>
+    <p class="rv">Rejected ideas and hard limits: platform, timeline, legacy systems, policy. Constraints are the strongest proof of real work.</p>
+    <div class="thinking rv"><h4>Thinking</h4><ul><li>Idea: X was rejected because Y.</li><li>Trade-off: we chose A over B to ship in 6 weeks.</li></ul></div></div>
+    <aside class="aside"></aside></section>
+
+  <section class="chapter" id="c5" data-title="Exploration"><div class="body">
+    <span class="eyebrow">Chapter 5</span><h2 class="rv">It took four rounds to get it right.</h2>
+    <p class="rv">Use the Thinking block for each round: idea, screen, pros, cons. Four rounds is plenty.</p>
+    <div class="w w-step" data-motion="interactive"><div class="steps" id="steps"><button aria-pressed="true">Round 1</button><button aria-pressed="false">Round 2</button><button aria-pressed="false">Round 3</button><button aria-pressed="false">Final</button></div><div class="panel" id="stepPanel">Round 1: the foundation. What we tried, what we learned.</div></div></div>
+    <aside class="aside"><div class="numeral rv">4<small>rounds, each tested</small></div></aside></section>
+
+  <section class="chapter" id="c6" data-title="The decision"><div class="body">
+    <span class="eyebrow">Chapter 6</span><h2 class="rv">They needed confidence, not more options.</h2>
+    <p class="rv">The turning point. One decision, one before and after.</p>
+    <div class="w w-ba" data-motion="interactive"><div class="seg" id="ba"><button aria-pressed="false">Before</button><button aria-pressed="true">After</button></div><div class="panel good" id="baPanel">After: the best option is shown first, one tap to apply.</div></div></div>
+    <aside class="aside"></aside></section>
+
+  <section class="chapter" id="c7" data-title="Handoff"><div class="body">
+    <span class="eyebrow">Chapter 7</span><h2 class="rv">Three hours with the engineers, so the why shipped too.</h2>
+    <p class="rv">How the design survived contact with engineering: walkthroughs, states, edge cases, success metrics agreed up front.</p></div>
+    <aside class="aside"><div class="note rv">Metrics we agreed to track: completion, engagement, support tickets.</div></aside></section>
+
+  <section class="chapter" id="c8" data-title="Results"><div class="body">
+    <span class="eyebrow">Chapter 8</span><h2 class="rv">It shipped, and here is what moved.</h2>
+    <p class="rv">Lead with the number, then the honest caveats, then what you would do next.</p></div>
+    <aside class="aside"><div class="numeral rv">+[X]%<small>completion (placeholder)</small></div></aside></section>
+
+  <footer class="next"><span class="eyebrow">Got a minute for another story?</span><br><a href="#tldr">Next case study &rarr;</a></footer>
+</div>
+
+<aside class="lab" id="lab" aria-label="Motion lab">
+  <h3>Motion lab <button type="button" id="labToggle">Hide</button></h3>
+  <div class="body">
+    <div class="score"><b id="mls">0</b><span class="verdict" id="verdict">GREEN</span></div>
+    <div class="meter"><i id="needle"></i></div>
+    <div class="stats"><div><span>Per chapter</span><b id="perCh">0</b></div><div><span>Delight share</span><b id="delShare">0%</b></div><div><span>Budget</span><b>&le;18</b></div></div>
+    <div class="warn" id="warn"></div>
+    <div class="reducednote">Your system asks for reduced motion. Heavy effects are disabled here, and your real site must honour this too.</div>
+    <ul id="fxList"></ul>
+  </div>
+</aside>
+
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var root = document.body;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var CHAPTERS = 8;
+  if (reduce) { document.documentElement.classList.add('reduced'); }
+
+  // id, label, weight, purpose, default, heavy (disabled under reduced motion)
+  var FX = [
+    { id: 'hover',    label: 'Hover and press feedback', w: 0.5, p: 'Guide',   on: true,  heavy: false },
+    { id: 'reveal',   label: 'Reveal on scroll (once)',  w: 1,   p: 'Guide',   on: true,  heavy: true  },
+    { id: 'progress', label: 'Rail highlight + progress bar', w: 1, p: 'Guide', on: true,  heavy: false },
+    { id: 'ba',       label: 'Before / after toggle',    w: 2,   p: 'Prove',   on: true,  heavy: false },
+    { id: 'step',     label: 'Rounds stepper',           w: 2,   p: 'Prove',   on: true,  heavy: false },
+    { id: 'flip',     label: 'Flip card (user quote)',   w: 2,   p: 'Explain', on: false, heavy: true  },
+    { id: 'parallax', label: 'Parallax headline',        w: 3,   p: 'Delight', on: false, heavy: true  },
+    { id: 'loop',     label: 'Ambient looping dots',     w: 2,   p: 'Delight', on: false, heavy: true  },
+    { id: 'cursor',   label: 'Cursor follower',          w: 4,   p: 'Delight', on: false, heavy: true  },
+    { id: 'scene',    label: 'Opening scene (full screen)', w: 6, p: 'Delight', on: false, heavy: true }
+  ];
+
+  // ---- rail from chapters
+  var rail = $('#railList');
+  var chapters = $$('.chapter[data-title]');
+  chapters.forEach(function (c, i) {
+    var li = document.createElement('li');
+    var a = document.createElement('a');
+    a.href = '#' + c.id;
+    a.innerHTML = '<b>' + String(i + 1).padStart(2, '0') + '</b><span>' + c.getAttribute('data-title') + '</span>';
+    li.appendChild(a); rail.appendChild(li);
+  });
+  var links = $$('a', rail);
+
+  function onScroll() {
+    var y = window.scrollY, h = document.documentElement.scrollHeight - window.innerHeight;
+    if (root.classList.contains('fx-progress')) { $('#prog').style.transform = 'scaleX(' + (h > 0 ? y / h : 0) + ')'; }
+    var idx = 0;
+    chapters.forEach(function (c, i) { if (c.getBoundingClientRect().top <= window.innerHeight * 0.35) { idx = i; } });
+    links.forEach(function (l, i) { l.classList.toggle('on', i === idx); });
+    if (root.classList.contains('fx-parallax') && !reduce) {
+      var art = $('.hero-art'); art.style.transform = 'translate3d(0,' + (y * 0.18) + 'px,0)';
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // ---- reveal
+  var io = null;
+  function setupReveal() {
+    if (io) { io.disconnect(); io = null; }
+    var els = $$('.rv');
+    if (!root.classList.contains('fx-reveal')) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    els.forEach(function (e) { if (e.getBoundingClientRect().top < window.innerHeight) { e.classList.add('in'); } else { e.classList.remove('in'); } });
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.15 });
+    els.forEach(function (e) { if (!e.classList.contains('in')) { io.observe(e); } });
+  }
+
+  // ---- widgets
+  $$('#ba button').forEach(function (b, i) {
+    b.addEventListener('click', function () {
+      $$('#ba button').forEach(function (x, j) { x.setAttribute('aria-pressed', String(i === j)); });
+      var p = $('#baPanel');
+      p.className = 'panel ' + (i === 0 ? 'bad' : 'good');
+      p.textContent = i === 0 ? 'Before: 50+ offers, all shown the same way. Which one is best?' : 'After: the best option is shown first, one tap to apply.';
+    });
+  });
+  var rounds = ['Round 1: the foundation. What we tried, what we learned.', 'Round 2: the breakthrough, and the catch.', 'Round 3: granular control and sharper hierarchy.', 'Final: everything together, as it shipped.'];
+  $$('#steps button').forEach(function (b, i) {
+    b.addEventListener('click', function () {
+      $$('#steps button').forEach(function (x, j) { x.setAttribute('aria-pressed', String(i === j)); });
+      $('#stepPanel').textContent = rounds[i];
+    });
+  });
+  $('#flip button').addEventListener('click', function () { $('#flip').classList.toggle('on'); });
+
+  // ---- cursor
+  window.addEventListener('mousemove', function (e) {
+    if (root.classList.contains('fx-cursor')) { $('#cur').style.transform = 'translate(' + e.clientX + 'px,' + e.clientY + 'px)'; }
+  });
+
+  // ---- scene
+  function runScene() {
+    var s = $('#scene'); s.classList.remove('run'); void s.offsetWidth; s.classList.add('run');
+    setTimeout(function () { s.classList.remove('run'); }, 2500);
+  }
+
+  // ---- motion lab
+  function render() {
+    var total = 0, delight = 0;
+    FX.forEach(function (f) {
+      var on = !!f.on && !(reduce && f.heavy);
+      root.classList.toggle('fx-' + f.id, on);
+      if (on) { var pts = f.w * (f.p === 'Delight' ? 1.5 : 1); total += pts; if (f.p === 'Delight') { delight += pts; } }
+    });
+    var verdict = total > 26 ? 'RED' : total > 18 ? 'AMBER' : 'GREEN';
+    var color = verdict === 'RED' ? 'var(--bad)' : verdict === 'AMBER' ? 'var(--warn)' : 'var(--ok)';
+    $('#mls').textContent = total.toFixed(1);
+    var v = $('#verdict'); v.textContent = verdict; v.style.background = color;
+    $('#needle').style.left = Math.min(100, (total / 35) * 100) + '%';
+    $('#perCh').textContent = (total / CHAPTERS).toFixed(1);
+    var share = total > 0 ? delight / total : 0;
+    $('#delShare').textContent = Math.round(share * 100) + '%';
+    var w = [];
+    if (total / CHAPTERS > 2.5) { w.push('Over 2.5 points per chapter.'); }
+    if (share > 0.25) { w.push('Delight motion is over 25% of the score.'); }
+    if (total < 6) { w.push('Very low: may read as flat. Keep one proof interaction.'); }
+    $('#warn').textContent = w.join(' ');
+    setupReveal(); onScroll();
+  }
+  var list = $('#fxList');
+  FX.forEach(function (f) {
+    var li = document.createElement('li');
+    var id = 'fx_' + f.id;
+    li.innerHTML = '<input type="checkbox" id="' + id + '"><label for="' + id + '">' + f.label + '<span class="tag ' + f.p + '">' + f.p + '</span><small>' + (f.p === 'Delight' ? (f.w + ' x 1.5 = ' + (f.w * 1.5)) : f.w) + ' pts</small></label>';
+    var cb = $('input', li); cb.checked = f.on; cb.disabled = reduce && f.heavy;
+    cb.addEventListener('change', function () {
+      f.on = cb.checked; render();
+      if (f.id === 'scene' && f.on && !reduce) { runScene(); }
+    });
+    list.appendChild(li);
+  });
+  $('#labToggle').addEventListener('click', function () {
+    var lab = $('#lab'); lab.classList.toggle('min'); this.textContent = lab.classList.contains('min') ? 'Show' : 'Hide';
+  });
+  render();
+})();
+</script>
+</body>
+</html>
