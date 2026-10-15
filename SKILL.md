@@ -91,6 +91,41 @@ Navigation: a sticky **layers-panel** table of contents on the left, with the cu
 
 ---
 
+## 5b. Reading craft (from great long-form writers)
+
+Sources: Dan Abramov (overreacted, "A Complete Guide to useEffect"), Josh W. Comeau (interactive CSS guides), Bartosz Ciechanowski (interactive explainers), Paul Graham (essays), Maggie Appleton (digital garden), Nate Parrott, a UX Collective essay on storytelling, and the Designare Field Guide. A case study is long-form reading, so the same craft applies.
+
+**Content strategy**
+- **Open on the reader's confusion or a hook, not a thesis.** Dan lists the questions you've been asking and then promises answers. Josh opens with a demo that looks like wizardry.
+- **One big promise per case study.** What the reader will understand by the end ("how I got vendors from enquiry to booking without a phone call"). Paul Graham: one question, answered end to end.
+- **State the cost upfront.** Read time, plus "best on desktop" if there are interactive bits. Dan warns his piece is "like a mini-book" and gives a TL;DR.
+- **Admit your own mistakes.** Josh: "I didn't understand flex-basis for a long time." Nate explains why he abandoned his project. This is the same muscle as "Why it failed".
+- **End with a next step:** the next case study, a "walk me through it" email CTA, or the live product or Figma file.
+
+**Structure that scans**
+- **Headings carry the story alone.** The UX Collective essay recommends this explicitly.
+- **Paragraphs of 2–4 sentences.** A one-line paragraph is allowed for emphasis, at most once per section.
+- **Bold is the skim layer.** Bold only the sentence you'd keep if the reader read nothing else, about one per paragraph and never decoratively. Reading only the bold should give the argument.
+- **A table of contents or chapter list** (our layers panel), plus **metadata up top:** read time · last updated · status.
+- **A recurring rhythm.** Pick one per case study and repeat it. Ciechanowski: explain → demo → explain. Dan: question → "spoilers ahead" → answer. Ours: But → Thinking bubble → Therefore → visual.
+- **Interleave text and visuals.** Never more than about 3 paragraphs without a visual, quote or callout.
+
+**Callouts and extras (use sparingly; each one has a job)**
+- **Side-note callouts** for tangents that would break the thread. Josh's "Proceed with caution" and "Not exactly the same" are examples. Ours are a Figma comment bubble or a sticky, labelled e.g. "Thinking", "Constraint", "Not shipped", "Dev note".
+- **Big numbers and pull quotes.** Stats as large numerals; a user or stakeholder quote gets its own block.
+- **"Guess first" dividers:** before a reveal (the final design, the twist), invite the reader to guess what you'd do. Dan's "spoilers ahead".
+- **Interactive widgets** embedded in the flow: sliders, toggles, try-it inputs. At most one per case study (Josh, Ciechanowski, James).
+- **Maturity or status tags:** "Live", "Live · iterating", "On hold", "Concept", with a "last updated" date, like Maggie's evergreen and planted labels.
+- **Footnotes** keep digressions out of the main text (Paul Graham). Use them for numbers, methodology and caveats.
+- **Friendly personality:** a casual line or one emoji per section is fine ("Let's do this!"); never in place of substance.
+
+**Pick a reading strategy per case study (don't mix all three):**
+1. **Make the reader do something** (Josh, Ciechanowski): reading feels like play. Best when the core decision can be interacted with.
+2. **Talk to the reader** (Dan, Maggie): a strong first-person voice. Suraj's default.
+3. **Rhythm only** (Paul Graham): almost no formatting, readable through sentence rhythm. Rarely right for a visual case study, but use it for the reflection.
+
+---
+
 ## 6. Visual language for case studies
 
 Keep the site system: background #F2F4F8, mat blue #2C55A5 (CTA and accents), highlighter #FFD84D, ink #16140F. Headline in Artific Bold, UI in Geist / Geist Mono. **Max 3 font sizes per component** (cards use 12 / 16 / 40). One filled primary button per screen.
@@ -129,10 +164,13 @@ Score each check **0 / 1 / 2** and quote the line or section that earned the sco
 | 12 | Length vs depth | Within the depth band, with no section that doesn't earn its place |
 | 13 | Reflection | It ends with a real learning, not "thanks for reading" |
 | 14 | Honesty | No invented numbers, quotes or users; unknowns marked `TODO(Suraj)` |
+| 15 | Skim layer | Reading only the bold sentences gives the argument; bold is never decorative |
+| 16 | Promise, cost, next step | One big promise stated early, read time/status shown up top, a clear next step at the end |
+| 17 | Rhythm and pacing | One recurring rhythm; ≤3 paragraphs without a visual, quote or callout; paragraphs of 2–4 sentences |
 
 **Review output format:**
 ```
-SCORE: x/28
+SCORE: x/34
 ARC: <one line>
 TOP 3 FIXES (highest impact first):
 1. <problem> → <exact rewrite or move>
@@ -142,7 +180,7 @@ BEAT MAP: H A B R T B T O L  (mark missing beats)
 OPEN QUESTIONS FOR SURAJ: <only facts I can't know>
 ```
 
-**Loop:** draft → self-review → apply the top fixes → re-score. Stop when score ≥ 24/28 with no 0s, or after 3 rounds. Then show Suraj the draft, the score and the remaining open questions. Never present a first draft unreviewed.
+**Loop:** draft → self-review → apply the top fixes → re-score. Stop when score ≥ 29/34 with no 0s, or after 3 rounds. Then show Suraj the draft, the score and the remaining open questions. Never present a first draft unreviewed.
 
 **After Suraj's feedback:** apply it, then add a dated entry to `## Learnings log`. If the feedback contradicts a rule above, change the rule and note why.
 
@@ -165,3 +203,4 @@ OPEN QUESTIONS FOR SURAJ: <only facts I can't know>
 - **2026-10-15:** The 800-word cap was rejected and replaced by length-by-depth (soft ceiling 2,000) plus the layered 30-sec rule. Lesson: don't apply a single guide's rule as law; check with Suraj.
 - **2026-10-15:** A TL;DR on every case study was confirmed by Suraj.
 - **2026-10-15:** Suraj's storytelling thesis (hook → solution → but → solution) was confirmed against 7 top case studies.
+- **2026-10-15:** Added the long-form reading craft from Suraj's research (Dan Abramov, Josh Comeau, Ciechanowski, Paul Graham, Maggie Appleton, Nate Parrott, UX Collective, the Field Guide) as §5b, plus rubric checks 15–17 (skim layer, promise/cost/next step, rhythm). Threshold is now 29/34.

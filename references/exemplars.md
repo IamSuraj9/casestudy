@@ -92,3 +92,18 @@ https://vaibhavshukla.xyz/Dashboard-revamp
 5. Proof or status up top; TL;DR.
 6. A one-line reflection to close.
 7. Length follows depth (600–1,800 words across the exemplars).
+
+---
+
+## Long-form writers (reading craft, added 2026-10-15)
+
+Not case studies, but the best examples of making long reading work. Rules distilled into SKILL.md §5b.
+
+- **Dan Abramov, "A Complete Guide to useEffect" (overreacted.io):** opens by listing the reader's questions; promises understanding ("grok"), not recipes; warns it's "like a mini-book" and gives a TL;DR; uses "spoilers ahead" dividers so readers guess first; Yoda stills and GIFs between text; bolds the key line.
+- **Josh W. Comeau (joshwcomeau.com):** opens on a demo that looks like wizardry; one promise (refine your mental model); "Way better on desktop!" cost warning; a table of contents and "last updated" date; callouts ("Content warning", "Proceed with caution", "Not exactly the same", "Is it still relevant?"); sliders and code playgrounds in the flow; admits he didn't understand flex-basis for years; friendly tone ("Let's do this!"); recap plus a course link at the end.
+- **Bartosz Ciechanowski (ciechanow.ski):** a strict rhythm of short explanation → interactive demo → short explanation; ends with further reading.
+- **Paul Graham (paulgraham.com):** one question answered end to end; almost no formatting; readability from sentence rhythm; footnotes for digressions.
+- **Maggie Appleton (maggieappleton.com):** maturity tags (evergreen, budding) and planted/last-tended dates show how finished an idea is; talks to the reader.
+- **Nate Parrott:** casual voice; openly explains why he abandoned his own project.
+- **UX Collective storytelling essay:** recommends headings that tell the story alone (its recap lists seven); big numerals for stats (271, 38, 52%); interview quotes as pull quotes; arrows ending each point; numbered process steps.
+- **Designare Field Guide:** numbered chapter list; read time and date metadata; interview Q&A with initials; a "Hot Takes" section; a video at the top.
