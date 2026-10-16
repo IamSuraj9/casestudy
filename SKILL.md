@@ -128,7 +128,7 @@ Sources: Dan Abramov (overreacted, "A Complete Guide to useEffect"), Josh W. Com
 
 ## 6. Visual language for case studies
 
-Keep the site system: background #F2F4F8, mat blue #2C55A5 (CTA and accents), highlighter #FFD84D, ink #16140F. Headline in Artific Bold, UI in Geist / Geist Mono. **Max 3 font sizes per component** (cards use 12 / 16 / 40). One filled primary button per screen.
+**Type: follow `references/type-scale.md` (rem scale; max 3 font sizes visible on any screen).** Keep the site system: background #F2F4F8, mat blue #2C55A5 (CTA and accents), highlighter #FFD84D, ink #16140F. Headline in Artific Bold, UI in Geist / Geist Mono. **Max 3 font sizes per component** (cards use 12 / 16 / 40). One filled primary button per screen.
 
 | Pattern | Our rendering |
 |---|---|
@@ -209,6 +209,7 @@ Load these when the task touches layout, motion or voice. They extend this file;
 | Polishing spoken/dictated phrasing, hand-off lines between chapters, interviewing from Wispr Flow first | `references/voice-and-story.md` |
 | See the layout and tune motion live | open `demo/layout-demo.html` |
 | Patterns from studied case studies | `references/exemplars.md` |
+| Font sizes, the 3-sizes-per-screen rule, contrast | `references/type-scale.md` |
 
 Defaults: 7-9 chapters. Sentence-style headlines that tell the whole story alone. Write headlines first. One interactive proof (rule in section 3). Target Motion Load Score 12-17 per case study (green is up to 18). Respect `prefers-reduced-motion`.
 
@@ -222,3 +223,4 @@ Defaults: 7-9 chapters. Sentence-style headlines that tell the whole story alone
 - **2026-10-15:** Added the long-form reading craft from Suraj's research (Dan Abramov, Josh Comeau, Ciechanowski, Paul Graham, Maggie Appleton, Nate Parrott, UX Collective, the Field Guide) as §5b, plus rubric checks 15–17 (skim layer, promise/cost/next step, rhythm). Threshold is now 29/34.
 - **2026-10-16:** Added hybrid layout (sticky rail, left-aligned column, right margin, 7-9 chapters), the Motion Load Score with audit script and live demo, voice cleanup rules (from Wispr Flow review recordings) and interview mode as references (§9). Open conflict resolved in favour of the existing rule: one interactive proof per case study.
 - **2026-10-16:** Fixed a splice error: §9 had been pasted into the middle of the intro sentence about the learnings log; it now sits after §8. Typography in `layout-hybrid.md` and the demo now defers to Suraj's own system (§6 / type scale), not the demo's serif values.
+- **2026-10-16:** Type scale v1 locked: rem tokens 64/48/40/24/20/16/12 desktop (40/32/28/20/16/14/12 mobile). Suraj's rule: max 3 font sizes per screen; nav and rail use the 12px mono label size. He chose to validate it while designing, not in theory.
