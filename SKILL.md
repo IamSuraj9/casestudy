@@ -128,7 +128,7 @@ Sources: Dan Abramov (overreacted, "A Complete Guide to useEffect"), Josh W. Com
 
 ## 6. Visual language for case studies
 
-**Type: follow `references/type-scale.md` (rem scale; max 3 font sizes visible on any screen).** Keep the site system: background #F2F4F8, mat blue #2C55A5 (CTA and accents), highlighter #FFD84D, ink #16140F. Headline in Artific Bold, UI in Geist / Geist Mono. **Max 3 font sizes per component** (cards use 12 / 16 / 40). One filled primary button per screen.
+**Type: follow `references/type-scale.md` (rem scale; max 3 font sizes visible on any screen).** Keep the site system: background #F2F4F8, mat blue #2C55A5 (CTA and accents), highlighter #FFD84D; text in tinted neutrals (ink #181D27, body #485060, muted #626977, see `references/type-scale.md`). Headline in Artific Bold, UI in Geist / Geist Mono. **Max 3 font sizes per component** (cards use 12 / 16 / 40). One filled primary button per screen.
 
 | Pattern | Our rendering |
 |---|---|
@@ -224,3 +224,4 @@ Defaults: 7-9 chapters. Sentence-style headlines that tell the whole story alone
 - **2026-10-16:** Added hybrid layout (sticky rail, left-aligned column, right margin, 7-9 chapters), the Motion Load Score with audit script and live demo, voice cleanup rules (from Wispr Flow review recordings) and interview mode as references (§9). Open conflict resolved in favour of the existing rule: one interactive proof per case study.
 - **2026-10-16:** Fixed a splice error: §9 had been pasted into the middle of the intro sentence about the learnings log; it now sits after §8. Typography in `layout-hybrid.md` and the demo now defers to Suraj's own system (§6 / type scale), not the demo's serif values.
 - **2026-10-16:** Type scale v1 locked: rem tokens 64/48/40/24/20/16/12 desktop (40/32/28/20/16/14/12 mobile). Suraj's rule: max 3 font sizes per screen; nav and rail use the 12px mono label size. He chose to validate it while designing, not in theory.
+- **2026-10-17:** Text colours moved to tinted neutrals on the background hue (ink #181D27 / body #485060 / muted #626977). The old ink #16140F was a warm black on a cool page. Screens are shown in a subtle mat container inside the page margins, never full bleed.
