@@ -107,3 +107,17 @@ Not case studies, but the best examples of making long reading work. Rules disti
 - **Nate Parrott:** casual voice; openly explains why he abandoned his own project.
 - **UX Collective storytelling essay:** recommends headings that tell the story alone (its recap lists seven); big numerals for stats (271, 38, 52%); interview quotes as pull quotes; arrows ending each point; numbered process steps.
 - **Designare Field Guide:** numbered chapter list; read time and date metadata; interview Q&A with initials; a "Hot Takes" section; a video at the top.
+
+## James Chugh: The Visibility Score (Traum · OYO) — Suraj's favourite writing style
+https://www.jameschugh.com/work/traum
+
+- **Numbered mini-eyebrows + point headlines:** "03 What we found" → "Owners came to look, not to act." Every section is a claim.
+- **One big plain statement** per key chapter, then the evidence.
+- **Evidence → "So the design" table:** each finding sits beside what it meant for the design (Per 1,000 visits | So the design).
+- **"So the brief wrote itself":** the HMW built like an equation (where they look + what it lacked − what they ignore ~~a sales pitch~~).
+- **"Four problems, pinned to the wall"** (flip cards: problem → what it meant → design response); **"A wrong turn: my first idea wasn't the best one."**
+- **"The principle"** one-line callout; **"Three rules it had to follow."**
+- **"Dropped: …"** scope note explaining what was cut and why ("Knowing when to simplify scope is part of designing for a real product").
+- **Honest status:** "Targets agreed with product and business. Not results, yet." plus a "we are here" timeline.
+- **Takeaway close:** "I started with X. I wanted one that showed them what to do next."
+- **Borrow:** the statement → table → equation rhythm, "So the design" columns, "Dropped" notes, the principle callout. Used for Ninur Ch.5 iteration M.
